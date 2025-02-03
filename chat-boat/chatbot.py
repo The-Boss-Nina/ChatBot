@@ -1,11 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import random
 from nltk.tokenize import word_tokenize
 import nltk
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
 
 nltk.download('punkt')
 
-#Pares de Perguntas e respostas
+# Pares de perguntas e respostas
 perguntas_respostas = {
     1: "Como posso ajudar você neste belo dia?",
     2: "Estou bem, obrigada por perguntar. Espero que você também esteja bem.",
@@ -22,16 +26,21 @@ despedida = ["adeus", "Bye", "até logo", "tchau"]
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return render_template('index.html') 
+
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
-    data = request.json
-    user_question = data['question']
-    resposta = responder_pergunta(user_question)
-    print(resposta)
-    return jsonify({'response': resposta})
+    try:
+        data = request.json
+        user_question = data['question']
+        resposta = responder_pergunta(user_question)
+        return jsonify({'response': resposta})
+    except Exception as e:
+        return jsonify({'response': 'Desculpe, houve um erro ao processar sua pergunta.'})
 
 def responder_pergunta(pergunta):
-
     tokens = word_tokenize(pergunta.lower())
 
     if len(tokens) > 0:
@@ -52,7 +61,6 @@ def responder_pergunta(pergunta):
                 return perguntas_respostas.get(5)
     
     return "Desculpe, não entendi a pergunta."
-    
 
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=5000)

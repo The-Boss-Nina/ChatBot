@@ -1,13 +1,11 @@
 from flask import Flask, request, jsonify, render_template
 import random
-from nltk.tokenize import word_tokenize
 import nltk
+import string  # Para remover a pontuação
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-
-nltk.download('punkt')
 
 # Pares de perguntas e respostas
 perguntas_respostas = {
@@ -18,13 +16,11 @@ perguntas_respostas = {
     5: "Tchau! Muito obrigada por testar esse serviço! Tenha um bom dia!"
 }
 
-cumprimento  = ["olá", "oi", "ai", "ola", "hey", "ei"]
+cumprimento = ["olá", "oi", "ai", "ola", "hey", "ei"]
 gentileza = ["tudo bem", "como vai", "tudo certo", "bem"]
 nome = ["qual é o seu nome", "como você se chama", "seu nome", "nome"]
 funcao = ["função", "o que você pode fazer", "quais são suas habilidades", "funções", "o que você faz", "funcao", "qual é a sua função"]
 despedida = ["adeus", "Bye", "até logo", "tchau"]
-
-app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -35,13 +31,18 @@ def chatbot():
     try:
         data = request.json
         user_question = data['question']
+        print(f"Pergunta recebida: {user_question}")  # Log da pergunta recebida
         resposta = responder_pergunta(user_question)
+        print(f"Resposta gerada: {resposta}")  # Log da resposta gerada
         return jsonify({'response': resposta})
     except Exception as e:
+        print(f"Erro ao processar a pergunta: {e}")  # Log de erro
         return jsonify({'response': 'Desculpe, houve um erro ao processar sua pergunta.'})
 
 def responder_pergunta(pergunta):
-    tokens = word_tokenize(pergunta.lower())
+    # Tokenização usando método simples, sem 'punkt' e removendo pontuação
+    tokens = [word.strip(string.punctuation) for word in pergunta.lower().split()]  # Removendo a pontuação
+    print(f"Tokens processados: {tokens}")  # Log dos tokens processados
 
     if len(tokens) > 0:
         for token in tokens:

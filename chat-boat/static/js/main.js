@@ -1,8 +1,7 @@
 $(document).ready(function () {
     $("#perguntar").click(function () {
-
         var pergunta = $("#pergunta").val();
-        console.log("Pergunta:", pergunta);
+        console.log("Pergunta enviada:", pergunta);  // Log da pergunta enviada
 
         $.ajax({
             url: 'http://localhost:5000/chatbot',
@@ -10,7 +9,7 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify({ question: pergunta }),
             success: function (data) {
-                console.log(data);
+                console.log("Resposta recebida:", data);  // Log da resposta recebida
                 if (data.response) {
                     $("#resposta").text(data.response);
                 } else {

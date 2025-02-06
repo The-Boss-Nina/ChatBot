@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import random
 import nltk
 import string  # Para remover a pontuação
+from datetime import datetime  # Para obter a data atual
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -16,11 +17,15 @@ perguntas_respostas = {
     5: "Tchau! Muito obrigada por testar esse serviço! Tenha um bom dia!"
 }
 
+# Palavras-chave associadas a intenções
 cumprimento = ["olá", "oi", "ai", "ola", "hey", "ei"]
 gentileza = ["tudo bem", "como vai", "tudo certo", "bem"]
 nome = ["qual é o seu nome", "como você se chama", "seu nome", "nome"]
 funcao = ["função", "o que você pode fazer", "quais são suas habilidades", "funções", "o que você faz", "funcao", "qual é a sua função"]
 despedida = ["adeus", "Bye", "até logo", "tchau"]
+intencao_dia = ["que dia é hoje", "qual é a data", "qual o dia da semana"]
+tempo = ["vai chover hoje", "como está o tempo", "está fazendo calor"]
+atividade = ["o que posso fazer hoje", "qual é a melhor atividade para relaxar", "o que fazer no meu tempo livre"]
 
 @app.route('/')
 def home():
@@ -44,22 +49,38 @@ def responder_pergunta(pergunta):
     tokens = [word.strip(string.punctuation) for word in pergunta.lower().split()]  # Removendo a pontuação
     print(f"Tokens processados: {tokens}")  # Log dos tokens processados
 
-    if len(tokens) > 0:
-        for token in tokens:
-            if token in cumprimento:
-                return perguntas_respostas.get(1)
-            
-            elif token in gentileza:
-                return perguntas_respostas.get(2)
-            
-            elif token in nome:
-                return perguntas_respostas.get(3)
-            
-            elif token in funcao:
-                return perguntas_respostas.get(4)
-            
-            elif token in despedida:
-                return perguntas_respostas.get(5)
+    # Responder perguntas sobre o dia
+    if any(questao in tokens for questao in intencao_dia):
+        hoje = datetime.now().strftime("%A, %d de %B de %Y")  # Obtendo a data atual
+        return f"Hoje é {hoje}"
+
+    # Responder perguntas sobre o tempo
+    if any(questao in tokens for questao in tempo):
+        return "Desculpe, eu não tenho informações sobre o tempo. Você pode verificar o clima no seu aplicativo favorito!"
+
+    # Responder perguntas sobre atividades
+    if any(questao in tokens for questao in atividade):
+        return "Você pode tentar fazer uma caminhada, praticar um hobby ou até ler um livro para relaxar."
+
+    # Responder perguntas relacionadas a saudações
+    if any(questao in tokens for questao in cumprimento):
+        return perguntas_respostas.get(1)
+    
+    # Responder perguntas relacionadas a gentileza
+    if any(questao in tokens for questao in gentileza):
+        return perguntas_respostas.get(2)
+
+    # Responder perguntas relacionadas ao nome
+    if any(questao in tokens for questao in nome):
+        return perguntas_respostas.get(3)
+
+    # Responder perguntas sobre a função
+    if any(questao in tokens for questao in funcao):
+        return perguntas_respostas.get(4)
+
+    # Responder perguntas relacionadas a despedida
+    if any(questao in tokens for questao in despedida):
+        return perguntas_respostas.get(5)
     
     return "Desculpe, não entendi a pergunta."
 

@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Chatbot</title>
-        <!-- Adicionando o link do jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" href="static/css/style.css">
-    </head>
-    <body>
-        <div id="chat-container">
-            <h1>Chatbot</h1>
-            <div id="chat-box">
-                <div id="resposta"></div>
-                <input type="text" id="pergunta" placeholder="Digite sua pergunta">
-                <button id="perguntar">Enviar</button>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Chatbot</h1>
+        <div id="chat-history">
+            <!-- Histórico de perguntas e respostas será adicionado aqui -->
         </div>
-        <script src="static/js/main.js"></script>
-    </body>
+        <input type="text" id="pergunta" placeholder="Digite sua pergunta">
+        <button id="perguntar">Enviar</button>
+    </div>
+
+    <script src="static/js/main.js"></script>
+</body>
 </html>

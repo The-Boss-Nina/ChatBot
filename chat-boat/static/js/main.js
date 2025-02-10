@@ -1,14 +1,15 @@
 $(document).ready(function () {
     $("#perguntar").click(function () {
         var pergunta = $("#pergunta").val();
-        console.log("Pergunta enviada:", pergunta);  // Log da pergunta enviada
 
-        // Se a pergunta estiver vazia, não envia
         if (pergunta.trim() === "") {
             return;
         }
 
-        // Limpar o campo de pergunta
+        // Adiciona a pergunta ao histórico
+        $("#chat-history").append(`<div class="question"><strong>Você:</strong> ${pergunta}</div>`);
+
+        // Limpa o campo de pergunta
         $("#pergunta").val("");
 
         $.ajax({
@@ -17,16 +18,19 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify({ question: pergunta }),
             success: function (data) {
-                console.log("Resposta recebida:", data);  // Log da resposta recebida
                 if (data.response) {
-                    $("#resposta").text(data.response);  // Exibir a resposta
+                    // Adiciona a resposta ao histórico
+                    $("#chat-history").append(`<div class="response"><strong>Bot:</strong> ${data.response}</div>`);
                 } else {
-                    $("#resposta").text("Desculpe, não entendi a pergunta.");
+                    $("#chat-history").append(`<div class="response"><strong>Bot:</strong> Desculpe, não entendi a pergunta.</div>`);
                 }
+
+                // Scroll para o final do histórico
+                $('#chat-history').scrollTop($('#chat-history')[0].scrollHeight);
             },
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);
-                $("#resposta").text("Erro ao processar a solicitação.");
+                $("#chat-history").append(`<div class="response"><strong>Bot:</strong> Erro ao processar a solicitação.</div>`);
             }
         });
     });

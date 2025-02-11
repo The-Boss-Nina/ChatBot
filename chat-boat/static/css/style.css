@@ -1,4 +1,5 @@
 body {
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,112 +8,90 @@ body {
   background-color: #f0f0f0;
 }
 
-#box {
-  width: 50%;
-  height: fit-content;
-  text-align: center;
+#chat-container {
+  width: 70%;
+  height: 80%;
   background-color: #fff;
   padding: 1em;
   border-radius: 0.8em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
 }
-h1{
-  font-size: xx-large;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
-  font-style: normal;
-}
-hr{
-  width: 90%;
-  border: 1px solid black;
-  border-radius: 1em;
-}
-#resposta{
-  width: 90%;
-  margin: 1.5em auto 1em;
-  font-size: large;
-  font-weight: normal;
-}
-#pergunta{
-  width: 40%;
-  height: 0.3em;
-  padding: 1em;
-  border: 2px solid black;
+
+#chat-history {
+  height: 60%;
+  overflow-y: auto;
   margin-bottom: 1em;
-
-  &:focus {
-    outline: 2px solid #909090;
-  }
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-#perguntar{
-  background-color: black;
-  color: #fff;
-  font-size: 0.95em;
-  padding: 0.6em;
+
+.message {
+  padding: 10px;
+  border-radius: 15px;
+  max-width: 70%;
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+.user-message {
+  background-color: #d0f0c0;
+  align-self: flex-end;
+  margin-left: 10px;
+}
+
+.bot-message {
+  background-color: #f0f0f0;
+  align-self: flex-start;
+  margin-right: 10px;
+}
+
+.message-text {
+  font-size: 1.2em;
+}
+
+#input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#input-container input[type="text"] {
+  width: 85%;
+  padding: 10px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#input-container button {
+  width: 13%;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  
-  &:hover{
-    background-color: #909090;
-    color: black;
-    font-size: 0.98em;
-  }
+  margin-left: 10px;
+}
+
+#input-container button:hover {
+  background-color: #0056b3;
 }
 
 @media screen and (max-width: 600px) {
-  #resposta{
-    margin: 1.5em auto 0.5em;
-    font-size: medium;
+  #chat-container {
+      width: 90%;
   }
-  #pergunta{
-    width: 50%;
+  #input-container input[type="text"] {
+      width: 70%;
   }
-  #perguntar{
-    font-size: 0.9em;
-    padding: 0.6em;
-  }
-
-  &:hover{
-    font-size: 0.95em;
-  }
-}
-@media screen and (max-width: 600px) {
-  #resposta{
-    margin: 1.5em auto 0.5em;
-    font-size: medium;
-  }
-  #pergunta{
-    width: 50%;
-  }
-  #perguntar{
-    font-size: 0.9em;
-    padding: 0.6em;
-  }
-
-  &:hover{
-    font-size: 0.95em;
-  }
-}
-@media screen and (max-width: 425px) {
-  #box {
-    width:70%;
-    padding: 0.8em;
-  }
-  h1{
-    font-size: x-large;
-  }
-  #resposta{
-    width: 95%;
-    margin: 1.5em auto 0.5em;
-    font-size: medium;
-  }
-  #pergunta{
-    width: 60%;
-    height: 0.2em;
-    margin-bottom: 1.5em;
-  }
-  #perguntar{
-    padding: 0.5em;
+  #input-container button {
+      width: 25%;
   }
 }

@@ -6,8 +6,8 @@ $(document).ready(function () {
             return;
         }
 
-        // Adiciona a pergunta ao histórico
-        $("#chat-history").append(`<div class="question"><strong>Você:</strong> ${pergunta}</div>`);
+        // Adiciona a pergunta ao histórico com balão do usuário
+        $("#chat-history").append(`<div class="message user-message"><span class="message-text">Você: ${pergunta}</span></div>`);
 
         // Limpa o campo de pergunta
         $("#pergunta").val("");
@@ -19,10 +19,10 @@ $(document).ready(function () {
             data: JSON.stringify({ question: pergunta }),
             success: function (data) {
                 if (data.response) {
-                    // Adiciona a resposta ao histórico
-                    $("#chat-history").append(`<div class="response"><strong>Bot:</strong> ${data.response}</div>`);
+                    // Adiciona a resposta ao histórico com balão do bot
+                    $("#chat-history").append(`<div class="message bot-message"><span class="message-text">Hiro: ${data.response}</span></div>`);
                 } else {
-                    $("#chat-history").append(`<div class="response"><strong>Bot:</strong> Desculpe, não entendi a pergunta.</div>`);
+                    $("#chat-history").append(`<div class="message bot-message"><span class="message-text">Hiro: Desculpe, não entendi a pergunta.</span></div>`);
                 }
 
                 // Scroll para o final do histórico
@@ -30,7 +30,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);
-                $("#chat-history").append(`<div class="response"><strong>Bot:</strong> Erro ao processar a solicitação.</div>`);
+                $("#chat-history").append(`<div class="message bot-message"><span class="message-text">Hiro: Erro ao processar a solicitação.</span></div>`);
             }
         });
     });

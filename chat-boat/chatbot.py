@@ -16,13 +16,11 @@ perguntas_respostas = {
     5: "Tchau! Muito obrigado por testar esse serviço! Tenha um bom dia!"
 }
 
-cumprimento = ["olá", "oi", "ai", "ola", "hey", "ei"]
-gentileza = ["tudo bem", "como vai", "tudo certo", "bem"]
-nome = ["qual é o seu nome", "como você se chama", "seu nome", "nome", "qual o seu nome?"]
-funcao = ["função", "qual a sua função", "o que você pode fazer", "quais são suas habilidades", "qual é a sua função?", "o que você faz"]
-despedida = ["adeus", "bye", "até logo", "tchau"]
-intencao_dia = ["que dia é hoje", "qual é a data", "qual o dia da semana", "qual é o dia de hoje", "qual é a data de hoje?", "qual o dia?"]
-quem_e_voce = ["quem é você", "quem é o seu nome", "qual é o seu nome", "qual é o nome do chatbot", "quem é o bot", "quem é o seu criador?"]
+cumprimento = ["olá", "oi", "hello"]
+gentileza = ["tudo bem"]
+nome = ["qual é o seu nome", "seu nome", "nome", "qual o seu nome?"]
+funcao = ["função", "qual a sua função", "qual é a sua função?"]
+despedida = ["adeus", "bye", "tchau"]
 
 @app.route('/')
 def home():

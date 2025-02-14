@@ -38,15 +38,6 @@ def chatbot():
 
 def responder_pergunta(pergunta):
     tokens = [word.strip(string.punctuation) for word in pergunta.lower().split()]
-
-    # Responder perguntas sobre o dia
-    if any(questao in tokens for questao in intencao_dia):
-        hoje = datetime.now().strftime("%A, %d de %B de %Y")  # Formato completo
-        return f"Hoje é {hoje}"
-
-    # Responder perguntas sobre atividades
-    if any(questao in tokens for questao in quem_e_voce):
-        return perguntas_respostas[1]
     
     # Responder perguntas relacionadas a saudações
     if any(questao in tokens for questao in cumprimento):

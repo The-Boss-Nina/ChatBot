@@ -9,7 +9,7 @@ $(document).ready(function () {
         // Adiciona a pergunta ao histórico com balão do usuário
         $("#chat-history").append(`<div class="message user-message"><span class="message-text">Você: ${pergunta}</span></div>`);
 
-        // Limpa o campo de pergunta
+        
         $("#pergunta").val("");
 
         $.ajax({
@@ -19,7 +19,7 @@ $(document).ready(function () {
             data: JSON.stringify({ question: pergunta }),
             success: function (data) {
                 if (data.response) {
-                    // Adiciona a resposta ao histórico com balão do bot
+                    
                     $("#chat-history").append(`<div class="message bot-message"><span class="message-text">Hiro: ${data.response}</span></div>`);
                 } else {
                     $("#chat-history").append(`<div class="message bot-message"><span class="message-text">Hiro: Desculpe, não entendi a pergunta.</span></div>`);
